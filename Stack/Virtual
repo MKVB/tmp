@@ -1,0 +1,104 @@
+#include <iostream>
+using namespace std;
+
+class ArrayObject
+{
+private:
+
+public:
+	virtual void print() = 0;
+	virtual void copy() = 0;
+	virtual int size() = 0;
+
+};
+
+class HeterogenContainer
+{
+private:
+	ArrayObject** objects;
+	int size;
+
+public:
+	HeterogenContainer(int n)
+	{
+		size = n;
+		objects = new ArrayObject*[n];
+		for (int i = 0; i < n; i++)
+		{
+			objects[i] = nullptr;
+		}
+	}
+
+	int size()
+	{
+		int size=0;
+		for (int i = 0; i < size; i++)
+		{
+			if (objects[i]!=nullptr)
+			{
+				size += objects[i]->size()
+			}
+		}
+	}
+
+	ArrayObject*& operator [](int i)
+	{
+		return objects[i];
+	}
+
+	void put(int i, ArrayObject* a)
+	{
+		objects[i] = a;
+	}
+
+};
+
+class Integer :public ArrayObject
+{
+
+private:
+
+	int value;
+
+
+public:
+	Integer(int x)
+	{
+		value = x;
+	}
+	void print()
+	{
+		cout << value;
+	}
+	void copy()
+	{
+
+
+	}
+	void size()
+	{
+
+	}
+
+};
+
+
+int main()
+{
+	HeterogenContainer hc(10);
+	Integer i(17);
+	hc.put(0, &i);
+	hc[0]->print();
+	cout << endl;
+
+	//hc[1] = "cat";
+	//hc[2] = 3.5;
+	//hc[3] = true;
+	//hc[4] = 'c';
+	//hc[5] = student;
+
+
+
+	system("pause");
+	return 0;
+}
