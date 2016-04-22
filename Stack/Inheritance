@@ -1,0 +1,191 @@
+#pragma once
+#include <iostream>
+#define Bycicle_H
+#include "Pulled_vehicles.h"
+
+class Bycicle:public PulledVehicles
+{
+protected:
+	char type_of_bike[100];
+	char type_break_system[100];
+public:
+	Bycicle(int s=0,int w=0,char* b="",int hrm=0,int num=0,int c=0,int np=0,char gg[100] ="",char tt[100] =""):PulledVehicles(s,w, b,hrm, num,c,np)
+	{
+		strcpy(type_of_bike,gg);
+		strcpy(type_break_system,tt);
+	}
+};
+
+
+#pragma once
+#include <iostream>
+#define RICKSHAW_H
+#include "Pulled_vehicles.h"
+
+class  Rickshaw:public PulledVehicles
+{
+protected:
+	bool is_self_driven;
+public:
+	Rickshaw(int s=0,int w=0,char* b="",int hrm=0,int num=0,int c=0,int np=0,bool is=false):PulledVehicles(s,w, b,hrm, num,c,np)
+	{
+		is_self_driven=is;
+	}
+};
+
+#pragma once
+#include <iostream>
+#define SCOOTER_H
+#include "Automobiles.h"
+
+class Scooter:public Automobiles
+{
+
+public:
+	Scooter(int s=0,int w=0,char* b="",int hrm=0,int num=0,int c=0,int engine=0,char* t=""):Automobiles(s,w, b,hrm, num,c,engine,t)
+	{
+	}
+};
+
+#pragma once
+#include <iostream>
+#define CAR_H
+#include "Automobiles.h"
+
+class Car : public Automobiles
+{
+protected:
+	int number_of_doors;
+	char coupet[100];
+public:
+	Car(int s=0,int w=0,char* b="",int hrm=0,int num=0,int c=0,int engine=0,char* t="",int nd=0,char cou[100]="" ) : Automobiles(s,w, b,hrm, num,c,engine,t)
+	{
+		 number_of_doors=nd;
+		 strcpy(coupet,cou);
+
+	}
+};
+
+#pragma once
+#include <iostream>
+#define PULLEDVEHICLES_H
+#include "Vehicle.h"
+
+
+class PulledVehicles : public Vehicle
+{
+protected:
+	int number_of_foodpedals;
+
+public:
+	PulledVehicles(int s=0,int w=0,char* b="",int hrm=0,int num=0,int c=0,int np=0) : Vehicle(s,w, b,hrm, num,c)
+	{
+     number_of_foodpedals=np;
+	}
+
+
+};
+
+#pragma once
+#include <iostream>
+#define AUTOMOBILE_H
+#include "Vehicle.h"
+
+
+class Automobiles:public Vehicle
+{
+protected:
+		int engine_horsepower;
+		char type[50];
+public:
+		Automobiles(int s=0,int w=0,char* b="",int hrm=0,int num=0,int c=0,int engine=0,char* t="" ):Vehicle(s,w, b,hrm, num,c)
+		{
+			engine_horsepower=engine;
+			strcpy(type,t);
+		}
+
+};
+
+#pragma once
+#include <iostream>
+#define VEHICLE_H
+
+
+class Vehicle
+{
+protected:
+		int speed;
+		int weight;
+		char brand[50];
+		int harmful_emissions;
+		int numberofwheels;
+		int capacity;
+
+public:
+	Vehicle(int s=0, int w=0, char* b="", int hrm=0, int num=0,int c=0)
+	{
+		speed=s;
+		weight=w;
+		strcpy(brand,b);
+		harmful_emissions=hrm;
+		numberofwheels=num;
+		capacity=c;
+	}
+
+};
+
+#include <iostream>
+#include "Car.h"
+#include "Scooter.h"
+#include "Rickshaw.h"
+#include "Bycicle.h"
+using namespace std;
+/*
+class Shape
+{
+protected:
+    float width, height;
+public:
+     Shape(float w, float h)
+    {
+        width = w;
+        height = h;
+    }
+};
+
+class Rectangle: public Shape
+{
+public:
+    Rectangle(float w, float h): Shape(w,h) {} 
+    float area ()
+    {
+        return (width * height);
+    }
+};
+
+class Triangle: public Shape
+{
+public:
+    Triangle(float w, float h): Shape(w,h) {} 
+    float area ()
+    {
+        return (width * height / 2);
+    }
+};
+
+*/
+
+
+
+int main ()
+{
+    Automobiles a;
+	Rickshaw b;
+	Car c;
+	Bycicle d;
+	Scooter t;
+	PulledVehicles r;
+
+	system("pause");
+    return 0;
+}
