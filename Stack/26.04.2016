@@ -1,0 +1,86 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+class Vehicle
+{
+public:
+	Vehicle(string name1)
+	{
+		this->name = name1;
+	}
+	virtual int get_passengers() const
+	{
+		return 0;
+
+	}
+
+	virtual double get_cargo() const
+	{
+		return 0;
+	}
+	void get_name() const
+	{
+		cout << name << endl;
+	}
+
+private:
+	string name;
+};
+
+class CargoVehicles:virtual public Vehicle
+{
+private:
+	double max_load;
+public:
+	CargoVehicles(string name, double cargo):Vehicle(name)
+	{
+		this->max_load = cargo;
+	}
+	double get_cargo() const
+	{
+		return max_load;
+	}
+
+};
+
+class PassengerVehicles:virtual public Vehicle
+{
+private:
+	int passengers;
+public:
+	PassengerVehicles(string name, int passengers) :Vehicle(name)
+	{
+		this->passengers = passengers;
+	}
+	int get_passengers() const
+	{
+		return passengers;
+	}
+};
+
+class CPVehicle:public CargoVehicles,public PassengerVehicles
+{
+	public:
+		CPVehicle(string name, double cargo, int passengers) :Vehicle(name), CargoVehicles(name, cargo), PassengerVehicles(name,passengers)
+		{}
+};
+
+int main()
+{
+
+
+	Vehicle v("car");
+	CargoVehicles cv("train",567);
+	PassengerVehicles pv("bus", 123);
+	//cout << pv.get_passengers() << endl;
+	CPVehicle cpv("plane", 100.25, 200);
+	cpv.get_name();
+
+
+
+	system("pause");
+	return 0;
+}
