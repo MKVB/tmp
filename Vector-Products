@@ -1,0 +1,162 @@
+product.h
+
+#ifndef PRODUCT_H
+#define PRODUCT_H
+
+class Product
+{
+private:
+	char* name;
+	int price;
+	char type[20];
+
+
+public:
+	Product(char* name1=" ", int price1=0,char type[20]=" ");
+	~Product();
+	Product(const Product& other);
+	Product& operator=(const Product& other);
+	void setName(char* name1);
+	void setPrice(int price1);
+	void setType(char type1[20]);
+	char* getName();
+	int getPrice();
+	char* getType();
+	void print() const;
+	bool operator==(const Product& other);
+};
+
+
+
+#endif
+
+
+product.cpp
+
+#include "Product.h"
+#include <iostream>
+using namespace std;
+Product::Product(char* name1, int price1, char type[20])
+{
+	name = new char[strlen(name1) + 1];
+	strcpy_s(name, strlen(name1) + 1, name1);
+	price = price1;
+	strcpy_s(this->type, type);
+}
+Product::~Product()
+{
+	delete[] name;
+}
+Product::Product(const Product& other)
+{
+	name = new char[strlen(other.name) + 1];
+	strcpy_s(name, strlen(other.name) + 1, other.name);
+	price = other.price;
+	strcpy_s(this->type, other.type);
+}
+Product& Product::operator=(const Product& other)
+{
+	if (this!=&other)
+	{
+		delete[] name;
+		name = new char[strlen(other.name) + 1];
+		strcpy_s(name, strlen(other.name) + 1, other.name);
+		price = other.price;
+		strcpy_s(this->type, other.type);
+	}
+	return *this;
+}
+void Product::setName(char* name1)
+{
+	name = new char[strlen(name1) + 1];
+	strcpy_s(name, strlen(name1) + 1, name1);
+}
+void Product::setPrice(int price1)
+{
+	price = price1;
+	
+}
+void Product::setType(char type1[20])
+{
+	strcpy_s(this->type, type);
+}
+char* Product::getName()
+{
+	return name;
+}
+int Product::getPrice()
+{
+	return price;
+}
+char* Product::getType()
+{
+	return type;
+}
+void Product::print() const
+{
+	cout << "Name " << name << endl;
+	cout << "Price " << price << endl;
+	cout << "Type " <<type << endl;
+}
+
+bool Product::operator==(const Product& other)
+{
+	if (strcmp(this->name,other.name)==0)
+	{
+		return true;
+	}
+	return false;
+}
+
+Shop.h
+#ifndef SHOP_H
+#define SHOP_H
+#include "Product.h"
+#include <vector>
+
+class Shop
+{
+private:
+	std::vector<Product> arr;
+
+public:
+
+	void Add(Product a);
+	void Remove(Product a);
+	void print() const;
+};
+
+
+
+#endif
+
+Shop.cpp
+#include "Shop.h"
+#include <iostream>
+#include "Product.h"
+using namespace std;
+void Shop::Add(Product a)
+{
+	arr.push_back(a);
+}
+void Shop::Remove(Product a)
+{
+	Product last = arr[arr.size() - 1];
+	
+	size_t i = 0;
+	for (; i < arr.size() && !(arr[i] == a); i++);
+	
+	if (i < arr.size()) {
+		arr[i] = last;
+		arr.pop_back();
+	}
+}
+void Shop::print() const
+{
+	for (int i = 0; i < arr.size(); i++)
+	{
+		arr[i].print();
+	}
+	cout << endl;
+}
+
